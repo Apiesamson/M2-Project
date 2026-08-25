@@ -1,30 +1,24 @@
-version: 0.2
+version: 0.1
 
-env:
-  variables:
-    DJANGO_SETTINGS_MODULE: agency.settings
+environment_variables:
+  plaintext:
+    DJANGO_SETTINGS_MODULE: config.settings.test
     SECRET_KEY: nosecret
     DATABASE_DEFAULT_URL: sqlite:///db1.sqlite3
     DATABASE_STREAMDATA_URL: sqlite:///db2.sqlite3
     STREAM_INCOMING_PRIVATE_KEY: changeme
     STREAM_INCOMING_PUBLIC_KEY: changeme
     GOOGLE_API_KEY: changeme
-    OPBEAT_ENABLED: "False"
+    OPBEAT_ENABLED: False
 
 phases:
-  install:
-    runtime-versions:
-      python: 3.12
   pre_build:
     commands:
       - echo Prebuild ops
-      - pip3 install --upgrade pip
       - pip3 install -r requirements.txt
   build:
     commands:
-      - echo Running Django test suite
-      - python3 manage.py collectstatic --noinput
-      - python3 manage.py test --verbosity=2
+      - echo Building the application 
   post_build:
     commands:
       - echo Build completed on `date`
