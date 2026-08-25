@@ -12,9 +12,13 @@ env:
     OPBEAT_ENABLED: "False"
 
 phases:
+  install:
+    runtime-versions:
+      python: 3.12
   pre_build:
     commands:
       - echo Prebuild ops
+      - pip3 install --upgrade pip
       - pip3 install -r requirements.txt
   build:
     commands:
